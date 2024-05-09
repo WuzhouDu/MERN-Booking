@@ -10,7 +10,6 @@ userRouter.post("/register", [
     check("lastName", "Last name is required!").isString(),
     check("email", "email is required!").isEmail(),
     check("password", "password with 6 or more chars is required!").isLength({ min: 6 }),
-
 ], async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
