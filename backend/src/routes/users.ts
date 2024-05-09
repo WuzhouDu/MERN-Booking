@@ -1,9 +1,10 @@
 import express, {Request, Response} from 'express';
-import User from '../models/user'
+import User from '../models/user';
+import jwt from 'jsonwebtoken';
 
-const router = express.Router();
+const userRouter = express.Router();
 
-router.post("/register", async (req: Request, res: Response) => {
+userRouter.post("/register", async (req: Request, res: Response) => {
     try {
         let user = await User.findOne({
             email: req.body.email,
@@ -15,7 +16,20 @@ router.post("/register", async (req: Request, res: Response) => {
 
         user = new User(req.body);
         await user.save();
+
+        const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET_KEY as string, {
+            expiresIn: "1d",
+        });
+
+        res.cookie("auth_token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 24 * 60 * 60 * 1000,
+        });
+        return res.status(200);
     } catch (err) {
         res.status(500).send({message: "Something Wrong"});
     }
 })
+
+export default userRouter;
