@@ -36,7 +36,7 @@ userRouter.post("/register", [
             secure: process.env.NODE_ENV === "production",
             maxAge: 24 * 60 * 60 * 1000,
         });
-        return res.status(200).send();
+        return res.status(200).json({message: "registration success!"});
     } catch (err) {
         res.status(500).send({ message: "Something Wrong" });
     }
