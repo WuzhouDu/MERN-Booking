@@ -8,13 +8,15 @@ import cookieParser from 'cookie-parser';
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string).then((_) => {
     console.log("connected to mongodb");
-});
+}).catch((error) => {
+    console.log(error);
+}) ;
 
 const app = express();
 
-app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(cors(
     {
         credentials: true,
