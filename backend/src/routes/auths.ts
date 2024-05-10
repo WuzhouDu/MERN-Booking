@@ -3,6 +3,7 @@ import { check, validationResult } from 'express-validator';
 import User from '../models/user';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import verifyToken from '../middleware/auth';
 
 const authRouter = express.Router();
 
@@ -30,7 +31,7 @@ authRouter.post("/login", [
         const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET_KEY as string, {expiresIn: "1d"});
 
         res.cookie("auth_token", token, {
-            httpOnly: true,
+            httpOnly: true, // only server and browser can access this cookie. client js cannot.
             secure: process.env.NODE_ENV === "production",
             maxAge: 24 * 60 * 60 * 1000,
         });
@@ -40,6 +41,10 @@ authRouter.post("/login", [
         console.log(error);
         res.status(500).json({message: "Something wrong"})
     }
+});
+
+authRouter.get("/validate-token", verifyToken, (req: Request, res: Response) => {
+    res.status(200).json({userId: req.userId});
 });
 
 export default authRouter;
