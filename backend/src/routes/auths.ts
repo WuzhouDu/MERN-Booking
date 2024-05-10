@@ -47,4 +47,11 @@ authRouter.get("/validate-token", verifyToken, (req: Request, res: Response) => 
     res.status(200).json({userId: req.userId});
 });
 
+authRouter.post("/logout", (req: Request, res: Response) => {
+    res.cookie("auth_token", "", {
+        expires: new Date(0),
+    });
+    res.status(200).send({message: "logout success!"});
+})
+
 export default authRouter;

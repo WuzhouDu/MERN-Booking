@@ -11,23 +11,19 @@ type ToastMessage = {
 type AppContext = {
     showToast: (toastMessage: ToastMessage) => void;
     isLoggedIn: boolean;
-    setIsLoggedIn: (value: boolean) => void;
 }
 
 const AppContext = React.createContext<AppContext | undefined>(undefined);
 
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const { isError } = useQuery("validateToken", apiClient.validateToken, {
         retry: false,
-        onSuccess: () => setIsLoggedIn(true),
-        onError: () => setIsLoggedIn(false),
     });
 
     return (
         <AppContext.Provider value={
-            { showToast: (message) => setToast(message), isLoggedIn, setIsLoggedIn }
+            { showToast: (message) => setToast(message), isLoggedIn: !isError }
         }>
             {toast &&
                 <Toast
