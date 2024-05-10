@@ -10,12 +10,14 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const users_1 = __importDefault(require("./routes/users"));
 const auths_1 = __importDefault(require("./routes/auths"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const path_1 = __importDefault(require("path"));
 mongoose_1.default.connect(process.env.MONGODB_CONNECTION_STRING).then((_) => {
     console.log("connected to mongodb");
 }).catch((error) => {
     console.log(error);
 });
 const app = (0, express_1.default)();
+app.use(express_1.default.static(path_1.default.join(__dirname, "../../frontend/dist")));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());
