@@ -3,7 +3,7 @@ export const hotelTypes = [
     "Boutique Hotel",
     "Business Hotel",
     "Budget Hotel",
-    "Bed and Breakfast (B&B)",
+    "Bed and Breakfast",
     "Hostel", "Motel",
     "Vacation Rental",
     "All-Inclusive Resort",
