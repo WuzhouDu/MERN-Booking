@@ -55,4 +55,6 @@ hotelRouter.post('/',
             console.log("Error creating hotel:", e);
             res.status(500).json({ message: "Something went wrong" });
         }
-    })
+    });
+
+export default hotelRouter;

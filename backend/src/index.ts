@@ -7,6 +7,7 @@ import authRouter from './routes/auths';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import {v2 as cloudiary} from 'cloudinary';
+import hotelRouter from './routes/my-hotels';
 
 cloudiary.config({
     cloud_name: process.env.CLOUDINART_NAME,
@@ -36,6 +37,7 @@ app.use(cors(
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
+app.use('/api/my-hotels', hotelRouter);
 
 app.listen(7001, () => {
     console.log("server running on localhost:7001");
