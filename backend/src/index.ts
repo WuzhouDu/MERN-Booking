@@ -39,6 +39,10 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/my-hotels', hotelRouter);
 
+app.get("*", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+})
+
 app.listen(7001, () => {
     console.log("server running on localhost:7001");
 });
