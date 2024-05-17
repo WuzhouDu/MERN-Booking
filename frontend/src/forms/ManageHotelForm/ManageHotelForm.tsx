@@ -19,6 +19,7 @@ export type HotelFormData = {
     pricePerNight: number;
     starRating: number;
     imageFiles: FileList;
+    imageUrls: string[];
 };
 
 type Props = {
