@@ -5,6 +5,7 @@ import Register from './pages/Register'
 import SignIn from './pages/SIgnIn'
 import { useAppContext } from './contexts/AppContext'
 import AddHotel from './pages/AddHotel'
+import MyHotels from './pages/MyHotels'
 
 
 function App() {
@@ -31,7 +32,13 @@ function App() {
                 <AddHotel />
               </Layout>}>
             </Route>
+            <Route path='/my-hotels' element={
+              <Layout>
+                <MyHotels />
+              </Layout>}>
+            </Route>
           </>
+
         )}
         <Route path='*' element={<Navigate to="/" />} />
       </Routes>

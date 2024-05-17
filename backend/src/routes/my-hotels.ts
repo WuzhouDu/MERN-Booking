@@ -59,7 +59,7 @@ hotelRouter.post('/',
 
 hotelRouter.get('/', verifyToken, async (req: Request, res: Response) => {
     try {
-        const hotels = Hotel.find({ userId: req.userId });
+        const hotels = await Hotel.find({ usrId: req.userId });
         res.json(hotels);
     } catch (err) {
         res.status(500).json({message: "Error fetching hotels"});
