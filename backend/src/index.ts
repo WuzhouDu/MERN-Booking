@@ -6,8 +6,9 @@ import userRouter from './routes/users';
 import authRouter from './routes/auths';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import {v2 as cloudiary} from 'cloudinary';
-import hotelRouter from './routes/my-hotels';
+import { v2 as cloudiary } from 'cloudinary';
+import myHotelRouter from './routes/my-hotels';
+import allHotelRouter from './routes/hotels';
 
 cloudiary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -19,7 +20,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string).then((_) => {
     console.log("connected to mongodb");
 }).catch((error) => {
     console.log(error);
-}) ;
+});
 
 const app = express();
 
@@ -37,7 +38,8 @@ app.use(cors(
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
-app.use('/api/my-hotels', hotelRouter);
+app.use('/api/my-hotels', myHotelRouter);
+app.use('/api/hotels', allHotelRouter);
 
 app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));

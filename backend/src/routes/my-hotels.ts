@@ -6,7 +6,7 @@ import verifyToken from '../middleware/auth';
 import { body } from 'express-validator';
 import { HotelType } from '../shared/types';
 
-const hotelRouter = express.Router();
+const myHotelRouter = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({
     storage: storage,
@@ -17,7 +17,7 @@ const upload = multer({
 
 
 // api/my-hotels
-hotelRouter.post('/',
+myHotelRouter.post('/',
     verifyToken, [
     body("name").notEmpty().withMessage("Name is required"),
     body("city").notEmpty().withMessage("City is required"),
@@ -50,7 +50,7 @@ hotelRouter.post('/',
         }
     });
 
-hotelRouter.get('/', verifyToken, async (req: Request, res: Response) => {
+myHotelRouter.get('/', verifyToken, async (req: Request, res: Response) => {
     try {
         const hotels = await Hotel.find({ usrId: req.userId });
         res.json(hotels);
@@ -59,7 +59,7 @@ hotelRouter.get('/', verifyToken, async (req: Request, res: Response) => {
     }
 })
 
-hotelRouter.get('/:id', verifyToken, async (req: Request, res: Response) => {
+myHotelRouter.get('/:id', verifyToken, async (req: Request, res: Response) => {
     const id = req.params.id.toString();
     try {
         const hotel = await Hotel.findOne({
@@ -72,7 +72,7 @@ hotelRouter.get('/:id', verifyToken, async (req: Request, res: Response) => {
     }
 })
 
-hotelRouter.put("/:hotelId", verifyToken, upload.array("imageFiles"), async (req: Request, res: Response) => {
+myHotelRouter.put("/:hotelId", verifyToken, upload.array("imageFiles"), async (req: Request, res: Response) => {
     try {
         const updatedHotel: HotelType = req.body;
         updatedHotel.lastUpdated = new Date();
@@ -82,7 +82,7 @@ hotelRouter.put("/:hotelId", verifyToken, upload.array("imageFiles"), async (req
         }, updatedHotel, { new: true });
 
         if (!hotel) {
-            return res.status(404).json({message: "hotel not found"});
+            return res.status(404).json({ message: "hotel not found" });
         }
 
         const files = req.files as Express.Multer.File[];
@@ -111,4 +111,4 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
     return imageURLs;
 }
 
-export default hotelRouter;
+export default myHotelRouter;
