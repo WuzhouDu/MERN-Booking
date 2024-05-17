@@ -14,7 +14,7 @@ allHotelRouter.get("/search", async (req: Request, res: Response) => {
 
         const total = await Hotel.countDocuments();
 
-        const response:HotelSearchResponse = {
+        const response: HotelSearchResponse = {
             data: hotels,
             pagination: {
                 total,
@@ -22,6 +22,7 @@ allHotelRouter.get("/search", async (req: Request, res: Response) => {
                 pages: Math.ceil(total / pageSize)
             }
         }
+        return res.json(response);
     } catch (error) {
         res.status(500).json({ message: "something wrong" });
     }
