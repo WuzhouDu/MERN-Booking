@@ -23,7 +23,7 @@ export type HotelFormData = {
 };
 
 type Props = {
-    hotel: HotelType;
+    hotel?: HotelType;
     onSave: (hotelFormData: FormData) => void;
     isLoading: boolean;
 }
@@ -38,6 +38,9 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
 
     const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
         const formmData = new FormData();
+        if (hotel) {
+            formmData.append("hotelId", hotel._id);
+        }
         formmData.append("name", formDataJson.name);
         formmData.append("city", formDataJson.city);
         formmData.append("description", formDataJson.description);
@@ -50,6 +53,12 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
         formDataJson.facilities.forEach((facility, index) => {
             formmData.append(`facilities[${index}]`, facility)
         });
+
+        if (formDataJson.imageUrls) {
+            formDataJson.imageUrls.forEach((url, index) => {
+                formmData.append(`imageUrls[${index}]`, url)
+            })
+        }
 
         Array.from(formDataJson.imageFiles).forEach((imageFile) => {
             formmData.append(`imageFiles`, imageFile);
