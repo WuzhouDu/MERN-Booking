@@ -135,6 +135,7 @@ export const searchHotels = async (searchParams: SearchParams): Promise<HotelSea
     queryParams.append("childCount", searchParams.childCount || "");
     queryParams.append("page", searchParams.page || "");
     queryParams.append("sortOption", searchParams.sortOption || "");
+    queryParams.append("maxPrice", searchParams.maxPrice || "");
 
     searchParams.facilities?.forEach((facility) => 
         queryParams.append(`facilities`, facility)

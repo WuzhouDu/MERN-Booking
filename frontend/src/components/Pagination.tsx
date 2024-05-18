@@ -10,6 +10,8 @@ const PagiNation = ({ page, pages, onPageChange }: Props) => {
         pageNumbers.push(i);
     }
 
+    if (pages == 0) return null;
+
     return (
         <div className="flex justify-center">
             <ul className="flex border border-slate-300">
