@@ -137,7 +137,7 @@ export const searchHotels = async (searchParams: SearchParams): Promise<HotelSea
     queryParams.append("sortOption", searchParams.sortOption || "");
     queryParams.append("maxPrice", searchParams.maxPrice || "");
 
-    searchParams.facilities?.forEach((facility) => 
+    searchParams.facilities?.forEach((facility) =>
         queryParams.append(`facilities`, facility)
     )
 
@@ -151,4 +151,13 @@ export const searchHotels = async (searchParams: SearchParams): Promise<HotelSea
     }
 
     return response.json();
+}
+
+export const fecthHotelById = async (hotelId: string): Promise<HotelType> => {
+    const resposne = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
+    if (!resposne.ok) {
+        throw new Error("Error fetching Hotels");
+    }
+
+    return resposne.json();
 }
