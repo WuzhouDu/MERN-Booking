@@ -36,19 +36,19 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     const search = useSearchContext();
     const { hotelId } = useParams();
 
-    // const { showToast } = useAppContext();
+    const { showToast } = useAppContext();
 
-    // const { mutate: bookRoom, isLoading } = useMutation(
-    //     apiClient.createRoomBooking,
-    //     {
-    //         onSuccess: () => {
-    //             showToast({ message: "Booking Saved!", type: "SUCCESS" });
-    //         },
-    //         onError: () => {
-    //             showToast({ message: "Error saving booking", type: "ERROR" });
-    //         },
-    //     }
-    // );
+    const { mutate: bookRoom, isLoading } = useMutation(
+        apiClient.createRoomBooking,
+        {
+            onSuccess: () => {
+                showToast({ message: "Booking Saved!", type: "SUCCESS" });
+            },
+            onError: () => {
+                showToast({ message: "Error saving booking", type: "ERROR" });
+            },
+        }
+    );
 
     const { handleSubmit, register } = useForm<BookingFormData>({
         defaultValues: {
@@ -77,7 +77,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
         });
 
         if (result.paymentIntent?.status === "succeeded") {
-            // bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id });
+            bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id });
         }
     };
 
@@ -139,7 +139,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
                 />
             </div>
 
-            {/* <div className="flex justify-end">
+            <div className="flex justify-end">
                 <button
                     disabled={isLoading}
                     type="submit"
@@ -147,7 +147,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
                 >
                     {isLoading ? "Saving..." : "Confirm Booking"}
                 </button>
-            </div> */}
+            </div>
         </form>
     );
 };
