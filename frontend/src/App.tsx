@@ -10,6 +10,7 @@ import EditHotel from './pages/EditHotel'
 import Search from './pages/Search'
 import Detail from './pages/Detail'
 import Booking from './pages/Booking'
+import MyBookings from './pages/MyBooking'
 
 
 function App() {
@@ -56,6 +57,15 @@ function App() {
                 <EditHotel />
               </Layout>}>
             </Route>
+            <Route
+              path="/my-bookings"
+              element={
+                <Layout>
+                  <MyBookings />
+                </Layout>
+              }
+            />
+
           </>
 
         )}
