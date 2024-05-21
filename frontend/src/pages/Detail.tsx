@@ -8,7 +8,7 @@ const Detail = () => {
     const { hotelId } = useParams();
 
     const { data: hotel } = useQuery("fetchHotelById", () =>
-        apiClient.fecthHotelById(hotelId || ""),
+        apiClient.fetchHotelById(hotelId || ""),
         {
             enabled: !!hotelId
         }
