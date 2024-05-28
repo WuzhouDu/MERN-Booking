@@ -4,6 +4,17 @@ import HotelTypesFilter from './HotelTypesFilter';
 import HotelFacilitiesFilter from './HotelFacilitiesFilter';
 import PriceFilter from './PriceFilter';
 
+type FilterProps = {
+    handleStarChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    selectedStars: string[];
+    handleTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    selectedHotelTypes: string[];
+    handleFacilityChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    selectedHotelFacilities: string[];
+    setSelectedMaxPrice: any
+    selectedMaxPrice?: number;
+}
+
 const Filter = ({
     handleStarChange,
     selectedStars,
@@ -13,7 +24,7 @@ const Filter = ({
     selectedHotelFacilities,
     setSelectedMaxPrice,
     selectedMaxPrice
-}) => {
+}: FilterProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleFilter = () => {

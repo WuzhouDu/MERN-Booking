@@ -4,10 +4,6 @@ import * as apiClient from '../api-client';
 import { useState } from "react";
 import SearchResultsCard from "../components/SearchResultCard";
 import PagiNation from "../components/Pagination";
-import StarRatingFilter from "../components/StarRatingFilter";
-import HotelTypesFilter from "../components/HotelTypesFilter";
-import HotelFacilitiesFilter from "../components/HotelFacilitiesFilter";
-import PriceFilter from "../components/PriceFilter";
 import Filter from "../components/Filter";
 
 const Search = () => {
